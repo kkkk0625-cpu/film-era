@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>菲林纪元</title>
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .knowledge-item {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .knowledge-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .knowledge-item img {
+      transition: all 0.3s ease;
+    }
+
+    .knowledge-item:hover img {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="loading-screen">
+    <div class="title-bar">
+      <!--<div class="title-left">
+        <img class="title-icon" src="image/title-left.webp" alt="菲林红元LOGO">
+      </div>-->
+      <div class="title-icons">
+        <img class="title-icon0" src="image/title-left.webp" alt="菲林红元LOGO">
+        <img class="title-icon" src="image/title-1.webp" alt="film1">
+        <img class="title-icon" src="image/title-2.webp" alt="film2">
+        <img class="title-icon" src="image/title-3.webp" alt="film3">
+        <img class="title-icon" src="image/title-4.webp" alt="film4">
+      </div>
+      <div class="title-right">
+        <img class="title-icon" src="image/title-right.webp" alt="排林红元LOGO">
+      </div>
+    </div>
+  </div>
+
+  <!-- 主页面内容，初始隐藏 -->
+  <div id="main-content" style="display:none;">
+    <!-- 右上角功能区 -->
+    <div class="top-right-actions-container">
+      <div class="top-right-actions">
+        <div href="#" class="icon-link"><img src="image/组 42.webp" alt="上传作品" class="nav-icon">上传作品</div>
+        <span class="nav-separator">|</span>
+        <div href="#" class="icon-link"><img src="image/组 43.webp" alt="登录/注册" class="nav-icon">登录/注册</div>
+      </div>
+    </div>
+
+    <!-- 顶部导航与LOGO -->
+    <div class="main-topbar">
+      <div class="main-nav-left">
+        <a href="history/index.html">历史长廊</a>
+        <span class="nav-separator">|</span>
+        <a href="lab/index.html">模拟实验室</a>
+        <span class="nav-separator">|</span>
+        <div class="dropdown">
+          <a href="javascript:void(0)">知识仓储</a>
+          <div class="dropdown-content">
+            <a href="">器材种类</a>
+            <a href="pu/index.html">胶片种类</a>
+            <a href="Sweep/index.html">冲扫教程</a>
+            <a href="">收藏指南</a>
+          </div>
+        </div>
+      </div>
+      <div class="main-logo">
+        <img src="image/组 37.webp" alt="LOGO">
+      </div>
+      <div class="main-nav-right">
+        <a href="news/index.html">精选资讯</a>
+        <span class="nav-separator">|</span>
+        <a href="community/index.html">菲林社区</a>
+        <span class="nav-separator">|</span>
+        <a href="about/index.html">关于我们</a>
+      </div>
+    </div>
+
+    <!-- 主图区域 -->
+    <div class="main-hero">
+      <div class="main-hero-img-wrap">
+        <img src="image/减去 1.webp" alt="主图" class="main-hero-img" id="main-hero-img">
+        <div class="main-hero-slogan">
+          For Those Who Believe in<br>
+          <div style="text-align: left;">Tangible Memories:<br></div>
+          <div style="text-align: left;">-<br></div>
+          Welcome to the Film Era!
+        </div>
+        <div class="main-hero-polaroids">
+          <img src="image/2.webp" alt="拍立得1" class="polaroid polaroid1" data-full="image/2.webp">
+          <img src="image/1.webp" alt="拍立得2" class="polaroid polaroid2" data-full="image/1.webp">
+        </div>
+        <div class="main-hero-count">
+          今日全球拍摄卷数：<span class="main-hero-count-num">671052</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 全屏展示遮罩层 -->
+    <div class="fullscreen-overlay" id="fullscreenOverlay">
+      <div class="overlay-content">
+        <img id="overlayImage" src="" alt="Full View">
+        <p id="overlayText" class="overlay-text">
+          胶卷是一种缓慢而浪漫的记录方式，它不像数码那样即时，却在等待中赋予了每一帧画面更多的生命力。每一次快门的按下，都伴随着光线穿越镜头、化作影像的奇迹，在颗粒分明的底片中静静沉淀。那些光影的斑驳、颜色的偏移与模糊的边缘，不是缺陷，而是记忆真实存在的痕迹。胶卷里的世界有点旧、有点暖，就像日落时分的风，柔软而坚定。也许正因为无法预览，才让我们更珍惜每一次按下快门的时刻。
+        </p>
+      </div>
+    </div>
+
+    <!-- 品牌介绍 -->
+    <section class="about" id="about">
+      <h2>前言</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p>在摄影的时光长河里，胶片始终是承载记忆的魔法载体。它还有个优雅的首译"非林"，以寓古质感为影像刻下独一无二的温度。</p><br />
+          <p>
+            1886年弗洛·伊士曼采用柔性片基础碘化银玻璃底片，开启胶片摄影的黄金时代。从黑白胶片的历质诗学，到彩色胶片的三原色添层；从胶片的日常记录，到反转片的直出神秘，不同的感度让它在最现场的光中自由呼吸——低感细腻如初，高感狂野如夜。
+          </p><br />
+          <p>
+            柯达的厚重、富士的明快、乐凯的本土情怀，曾让胶片里里外外时潮时代光影。即便数字浪潮席卷而来，胶片仍以可替代性魅力诞生：化学反应催生的自然色彩、大气感度下的细节保留、放大后依旧细腻的颗粒质感，让它在艺术创作中始终是光影诗人的执念之选。
+          </p>
+        </div>
+        <div class="about-image">
+          <img src="image/前言图.webp" alt="胶片摄影">
+        </div>
+      </div>
+    </section>
+
+    <!-- 活动/公告 -->
+    <section class="activity" id="activity">
+      <div class="activity-header">
+        <div class="activity-title">
+          <div class="title-with-brackets">
+            <span class="bracket-left">「</span>
+            <div class="title-content">
+              <h2>精选<br>资讯</h2>
+              <div class="title-line">|</div>
+              <span class="activity-subtitle">Focus</span>
+            </div>
+            <span class="bracket-right">」</span>
+          </div>
+        </div>
+      </div>
+      <div class="activity-content">
+        <div class="activity-bg">
+          <img src="image/3.webp" alt="背景图" class="bg-image">
+        </div>
+        <div class="activity-corner-decoration">
+          <img src="image/4.webp" alt="装饰" class="corner-image">
+        </div>
+        <div class="activity-main">
+          <div class="activity-numbers">
+            <img src="image/01.webp" alt="01" class="nav-image" data-index="0" id="number-img-0">
+            <img src="image/02.webp" alt="02" class="nav-image" data-index="1" id="number-img-1">
+            <img src="image/03.webp" alt="03" class="nav-image" data-index="2" id="number-img-2">
+            <span class="number">...</span>
+          </div>
+          <div class="activity-images">
+            <div class="activity-slide active" data-index="0">
+              <img src="image/海报.webp" alt="一次性相机漂流计划" class="activity-poster">
+              <img src="image/组 53.webp" alt="活动说明" class="activity-text-image">
+            </div>
+            <div class="activity-slide" data-index="1">
+              <img src="image/海报2.webp" alt="活动2" class="activity-poster">
+              <img src="image/共创招募.webp" alt="活动2说明" class="activity-text-image">
+            </div>
+            <div class="activity-slide" data-index="2">
+              <img src="image/海报3.webp" alt="活动3" class="activity-poster">
+              <img src="image/胶片征集.webp" alt="活动3说明" class="activity-text-image">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="activity-logo-top-right">
+        <img src="image/组 47.webp" alt="Logo" class="corner-logo">
+      </div>
+      <div class="activity-logo-bottom-left">
+        <img src="image/组 49.webp" alt="Logo" class="corner-logo">
+      </div>
+    </section>
+
+    <section class="knowledge" id="knowledge">
+      <div class="knowledge-corner-decoration">
+        <img src="image/组 50.webp" alt="装饰" class="corner-image">
+      </div>
+      <div class="knowledge-header">
+        <div class="knowledge-title">
+          <div class="title-with-brackets">
+            <span class="bracket-left">「</span>
+            <div class="title-content">
+              <h2>知识<br>仓库</h2>
+              <div class="title-line">|</div>
+              <span class="knowledge-subtitle">Base</span>
+            </div>
+            <span class="bracket-right">」</span>
+          </div>
+        </div>
+      </div>
+      <div class="knowledge-content">
+        <div class="knowledge-bg">
+          <img src="image/组 54.webp" alt="背景" class="bg-image">
+        </div>
+        <div class="knowledge-grid">
+          <div class="knowledge-item" id="equipment">
+            <img src="image/组 59.webp" alt="器材百科">
+          </div>
+          <div class="knowledge-item" id="film">
+            <img src="image/组 60.webp" alt="胶片教学">
+          </div>
+          <div class="knowledge-item" id="tutorial">
+            <img src="image/组 61.webp" alt="冲洗教程">
+          </div>
+          <div class="knowledge-item" id="collection">
+            <img src="image/组 62.webp" alt="收藏指南">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="community" id="community">
+      <div class="community-logo">
+        <img src="image/组 64.webp" alt="相机logo" class="logo-image">
+      </div>
+      <div class="community-content">
+        <div class="community-title">
+          <div class="title-with-brackets">
+            <span class="bracket-left">「</span>
+            <div class="title-content">
+              <h2>菲林<br>社区</h2>
+              <div class="title-line">|</div>
+              <span class="community-subtitle">Community</span>
+            </div>
+            <span class="bracket-right">」</span>
+          </div>
+        </div>
+        <div class="community-content">
+          <div class="community-bg">
+            <img src="image/组 65.webp" alt="社区背景" class="bg-image">
+          </div>
+          <div class="community-text">
+            <div style="color: #C42020;font-size: 20px;font-weight: bold;margin-top: 10px;">菲林社区：光影交织热爱者的乌托邦</div>
+            <br>
+            在数字洪流席卷一切的时代，<br>
+            我们执着地守护着胶片的独特浪漫 <br>
+            —— 那些细腻的颗粒感、<br>
+            不可复制的色彩偏差、<br>
+            等待显影时的忐忑期待，<br>
+            都在这里找到了共鸣的声音。
+          </div>
+          <div class="community-images">
+            <img src="image/组 67.webp" alt="社区图片1" class="community-img1">
+            <img src="image/组 68.webp" alt="社区图片2" class="community-img2">
+          </div>
+          <img src="image/组 66.webp" alt="社区图片2" class="community-img3">
+        </div>
+      </div>
+    </section>
+
+    <section class="history" id="history">
+      <div class="history-title">
+        <div class="title-with-brackets">
+          <span class="bracket-left">「</span>
+          <div class="title-content">
+            <h2>历史<br>长廊</h2>
+            <div class="title-line">|</div>
+            <span class="history-subtitle">History</span>
+          </div>
+          <span class="bracket-right">」</span>
+        </div>
+      </div>
+      <div class="history-title-img">
+        <img src="image/组 51.webp" alt="历史长廊" class="history-title-img-img">
+      </div>
+      <div class="history-timeline">
+        <div class="history-bg">
+          <img src="image/7.webp" alt="历史背景">
+        </div>
+        <div class="history-swiper swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="timeline-item">
+                <div class="timeline-content">
+                  <div class="timeline-year">1885</div>
+                  <h3>柯达公司成立，开启了胶片摄影的新纪元。乔治·伊士曼发明了第一卷胶卷，使得摄影不再局限于笨重的玻璃底片。</h3>
+                </div>
+                <div class="timeline-image">
+                  <img src="image/柯达公司.webp" alt="柯达公司成立">
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="timeline-item">
+                <div class="timeline-content">
+                  <div class="timeline-year">1903</div>
+                  <h3>柯达推出第一款便携式相机Brownie，让普通大众也能轻松拍摄照片，开启了大众摄影的新时代。</h3>
+                </div>
+                <div class="timeline-image">
+                  <img src="image/brownie.webp" alt="柯达Brownie相机">
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="timeline-item">
+                <div class="timeline-content">
+                  <div class="timeline-year">1907</div>
+                  <h3>柯达发明了第一款自动冲印机，大大提高了照片的处理效率，使得摄影工作室能够更快地为客户提供服务。</h3>
+                </div>
+                <div class="timeline-image">
+                  <img src="image/冲印.webp" alt="柯达自动冲印机">
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="timeline-item">
+                <div class="timeline-content">
+                  <div class="timeline-year">1942</div>
+                  <h3>柯达在中国上海设立了第一家分公司，将胶片摄影技术引入中国，影响了几代中国摄影师。</h3>
+                </div>
+                <div class="timeline-image">
+                  <img src="image/分公司.webp" alt="柯达上海分公司">
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="timeline-item">
+                <div class="timeline-content">
+                  <div class="timeline-year">1985</div>
+                  <h3>柯达推出T-MAX系列黑白胶片，其超细腻的颗粒和宽广的动态范围，至今仍是摄影师的最爱。</h3>
+                </div>
+                <div class="timeline-image">
+                  <img src="image/黑白.webp" alt="T-MAX胶片">
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="timeline-item">
+                <div class="timeline-content">
+                  <div class="timeline-year">2003</div>
+                  <h3>柯达推出了革命性的数码相机系列，虽然标志着传统胶片时代的转折，但也开启了数码影像的新篇章。</h3>
+                </div>
+                <div class="timeline-image">
+                  <img src="image/数码.webp" alt="柯达数码相机">
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="timeline-item">
+                <div class="timeline-content">
+                  <div class="timeline-year">2008</div>
+                  <h3>柯达宣布停产其标志性的柯达彩色反转片，这标志着一个时代的结束，但胶片摄影的艺术价值永存。</h3>
+                </div>
+                <div class="timeline-image">
+                  <img src="image/8.webp" alt="柯达彩色反转片">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 导航按钮 -->
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+          <!-- 时间轴点 -->
+          <div class="timeline-points">
+            <div class="point" data-year="1885"></div>
+            <div class="point" data-year="1903"></div>
+            <div class="point" data-year="1907"></div>
+            <div class="point" data-year="1942"></div>
+            <div class="point" data-year="1985"></div>
+            <div class="point" data-year="2003"></div>
+            <div class="point" data-year="2008"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- <section>
+      <div class="footer-logo">
+        <img src="image/组 69.webp" alt="" class="footer-logo-img">
+      </div>
+    </section> -->
+    <section class="footer-bg-section">
+      <div class="footer-bg" style="padding-bottom: 200px;">
+        <img src="image/70.webp" alt="" class="footer-bg-img1">
+      </div>
+      <div class="footer-bg-img-2" style="display: none;">
+        <img src="image/蒙版组 14.webp" alt="" class="footer-bg-img2" id="fullscreenTarget">
+        <div class="footer-bg-text">
+          <p>Not Just a Hobby</p>
+          <p>-It's a Lifestyle</p>
+          <p>Wrapped in 35mm 5Pools</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 返回顶部按钮 -->
+    <div class="back-to-top">
+      <img src="image/组 52.webp" alt="返回顶部" class="back-to-top-img">
+    </div>
+  </div>
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+  <script>
+    // 优化后的数字切换逻辑
+    const normalSrcs = ['image/01.webp', 'image/02.webp', 'image/03.webp'];
+    const activeSrcs = ['image/001.webp', 'image/002.webp', 'image/003.webp'];
+    const navImages = [
+      document.getElementById('number-img-0'),
+      document.getElementById('number-img-1'),
+      document.getElementById('number-img-2')
+    ];
+
+    // 初始状态：第一个显示01，后两个显示002、003
+    navImages[0].src = normalSrcs[0];
+    navImages[1].src = activeSrcs[1];
+    navImages[2].src = activeSrcs[2];
+
+    navImages.forEach((img, idx) => {
+      img.addEventListener('click', () => {
+        navImages.forEach((otherImg, i) => {
+          if (i === idx) {
+            otherImg.src = normalSrcs[i];
+            otherImg.classList.add('clicked');
+          } else {
+            otherImg.src = activeSrcs[i];
+            otherImg.classList.remove('clicked');
+          }
+        });
+      });
+    });
+    navImages.forEach(img => {
+      img.addEventListener('animationend', () => {
+        img.classList.remove('clicked');
+      });
+    });
+  </script>
+  <script>
+    (function () {
+      // 轮播图片列表
+      const bgList = [
+        '减去 1.webp',
+        '减去 1.webp',
+        '减去 2.webp',
+        '减去 3.webp',
+        '减去 4.webp',
+      ];
+      const img = document.getElementById('main-hero-img');
+      let idx = 0;
+      setInterval(() => {
+        img.classList.add('fade');
+        setTimeout(() => {
+          idx = (idx + 1) % bgList.length;
+          img.src = 'image/' + bgList[idx];
+          img.classList.remove('fade');
+        }, 800); // 800ms与CSS动画时长一致
+      }, 3000);
+    })();
+  </script>
+  <script src="script.js"></script>
+
+  <!-- 上传作品弹窗 -->
+  <div class="upload-modal" id="uploadModal">
+    <div class="upload-modal-content">
+      <span class="upload-modal-close" id="uploadModalClose">&times;</span>
+
+      <!-- 顶部标签页 -->
+      <div class="upload-tabs">
+        <button class="upload-tab active" data-tab="video">上传视频</button>
+        <button class="upload-tab" data-tab="image">上传图文</button>
+        <button class="upload-tab" data-tab="article">写长文</button>
+        <div class="upload-draft">
+          <svg class="draft-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span>草稿箱(0)</span>
+        </div>
+      </div>
+
+      <!-- 上传区域 -->
+      <div class="upload-area" id="uploadArea">
+        <div class="upload-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+        </div>
+        <p class="upload-hint">拖拽视频到此或点击上传</p>
+        <button class="upload-btn">上传视频</button>
+        <input type="file" id="fileInput" accept="video/*,image/*" hidden>
+      </div>
+
+      <!-- 底部信息 -->
+      <div class="upload-info">
+        <div class="upload-info-item">
+          <h4>视频大小</h4>
+          <p>支持时长4小时以内，<br>最大20GB的视频文件</p>
+        </div>
+        <div class="upload-info-item">
+          <h4>视频格式</h4>
+          <p>支持常用视频格式，<br>推荐使用mp4、mov</p>
+        </div>
+        <div class="upload-info-item">
+          <h4>视频分辨率</h4>
+          <p>超过1080P的视频用网页端上传画质更清晰</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 上传弹窗功能
+    document.addEventListener('DOMContentLoaded', function() {
+      const uploadModal = document.getElementById('uploadModal');
+      const uploadModalClose = document.getElementById('uploadModalClose');
+      const uploadWorkBtn = document.querySelector('.icon-link');
+      const uploadTabs = document.querySelectorAll('.upload-tab');
+      const uploadArea = document.getElementById('uploadArea');
+      const fileInput = document.getElementById('fileInput');
+
+      // 打开弹窗
+      if (uploadWorkBtn) {
+        uploadWorkBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          uploadModal.style.display = 'flex';
+        });
+      }
+
+      // 关闭弹窗
+      uploadModalClose.addEventListener('click', function() {
+        uploadModal.style.display = 'none';
+      });
+
+      // 点击背景关闭
+      uploadModal.addEventListener('click', function(e) {
+        if (e.target === uploadModal) {
+          uploadModal.style.display = 'none';
+        }
+      });
+
+      // ESC键关闭
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && uploadModal.style.display === 'flex') {
+          uploadModal.style.display = 'none';
+        }
+      });
+
+      // 标签页切换
+      uploadTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          uploadTabs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+
+          // 根据标签更新上传区域内容
+          const tabType = this.dataset.tab;
+          updateUploadArea(tabType);
+        });
+      });
+
+      // 更新上传区域
+      function updateUploadArea(type) {
+        const uploadHint = uploadArea.querySelector('.upload-hint');
+        const uploadBtn = uploadArea.querySelector('.upload-btn');
+
+        if (type === 'video') {
+          uploadHint.textContent = '拖拽视频到此或点击上传';
+          uploadBtn.textContent = '上传视频';
+          fileInput.accept = 'video/*';
+        } else if (type === 'image') {
+          uploadHint.textContent = '拖拽图片到此或点击上传';
+          uploadBtn.textContent = '上传图片';
+          fileInput.accept = 'image/*';
+        } else if (type === 'article') {
+          uploadHint.textContent = '点击开始撰写长文';
+          uploadBtn.textContent = '开始写作';
+        }
+      }
+
+      // 点击上传按钮触发文件选择
+      const uploadBtn = uploadArea.querySelector('.upload-btn');
+      uploadBtn.addEventListener('click', function() {
+        const activeTab = document.querySelector('.upload-tab.active');
+        if (activeTab.dataset.tab !== 'article') {
+          fileInput.click();
+        } else {
+          alert('长文编辑功能开发中...');
+        }
+      });
+
+      // 文件选择处理
+      fileInput.addEventListener('change', function(e) {
+        if (e.target.files.length > 0) {
+          alert('已选择文件: ' + e.target.files[0].name);
+        }
+      });
+
+      // 拖拽上传
+      uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.style.backgroundColor = '#e8e8e8';
+      });
+
+      uploadArea.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        this.style.backgroundColor = '#f5f5f5';
+      });
+
+      uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.style.backgroundColor = '#f5f5f5';
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          alert('已拖拽文件: ' + files[0].name);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
