@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>冲扫教程-菲林纪元</title>
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0px 20px;
+  }
+
+  .step-section {
+
+
+    border-radius: 12px;
+
+    overflow: hidden;
+  }
+
+  .step-content {
+    display: flex;
+    align-items: center;
+    min-height: 400px;
+  }
+
+  .step-content.left-image {
+    flex-direction: row;
+  }
+
+  .step-content.right-image {
+    flex-direction: row-reverse;
+  }
+
+  .image-container {
+    flex: 1;
+    position: relative;
+    padding: 30px;
+
+  }
+
+  .main-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+
+  }
+
+
+  .text-content {
+    flex: 1;
+    padding: 40px;
+  }
+
+  .step-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #d32f2f;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  .step-description {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+
+  .step-icon {
+    z-index: -1;
+    position: absolute;
+    margin-left: 350px;
+
+  }
+
+  .step-icon img {
+    width: 250px;
+    height: auto;
+    margin-top: -130px;
+    margin-left: -30px;
+
+  }
+</style>
+
+<body>
+  <!-- 右上角功能区 -->
+  <div class="top-right-actions-container">
+    <div class="top-right-actions">
+      <div href="#" class="icon-link"><img src="image/组 42.webp" alt="上传作品" class="nav-icon">上传作品</div>
+      <span class="nav-separator">|</span>
+      <div href="#" class="icon-link"><img src="image/组 43.webp" alt="登录/注册" class="nav-icon">登录/注册</div>
+    </div>
+  </div>
+
+  <!-- 顶部导航与LOGO -->
+  <div class="main-topbar">
+    <div class="main-nav-left">
+      <a href="#">历史长廊</a>
+      <span class="nav-separator">|</span>
+      <a href="../lab/index.html">模拟实验室</a>
+      <span class="nav-separator">|</span>
+      <div class="dropdown">
+        <a href="javascript:void(0)" style="color: red;pointer-events:none;">知识仓储</a>
+        <div class="dropdown-content">
+          <a href="">器材种类</a>
+          <a href="../pu/index.html">胶片种类</a>
+          <a href="../Sweep/index.html">冲扫教程</a>
+          <a href="">收藏指南</a>
+        </div>
+      </div>
+    </div>
+    <div class="main-logo">
+      <a href="../index.html"><img src="image/组 44.webp" alt="LOGO"></a>
+    </div>
+    <div class="main-nav-right">
+      <a href="../news/index.html">精选资讯</a>
+      <span class="nav-separator">|</span>
+      <a href="../community/index.html">菲林社区</a>
+      <span class="nav-separator">|</span>
+      <a href="../about/index.html">关于菲林纪元</a>
+    </div>
+  </div>
+
+  <!-- 主图区域 -->
+  <div class="main-hero">
+    <div class="main-hero-img-wrap">
+      <img src="image/减去 1.webp" alt="主图" class="main-hero-img" id="main-hero-img">
+      <div class="main-hero-slogan">
+        <p>Tracing back to the </p>
+        <p> light - shadow</p>
+        <p>moment in 1826, </p>
+        <p>the history of film first</p>
+        <p>glimmers.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 胶片纪程区块 开始 -->
+  <section class="film-history-section">
+    <div class="film-history-content">
+      <img src="image/组 376.webp" alt="蓝色胶卷" class="film-icon">
+    </div>
+    <div class="container">
+      <!-- Step 01 - Left Image, Right Text -->
+      <section class="step-section" style="margin-bottom: -40px;">
+        <div class="step-content left-image">
+          <div class="image-container">
+            <img src="image/组 377.webp" alt="步骤1主图" class="main-image">
+
+          </div>
+          <div class="text-content">
+            <h2 class="step-title">Step 01 黑暗环境装卷准备</h2>
+            <p class="step-description">
+              ·操作环境：暗房内仅开黑白胶片专用红灯（距离工作台 1.5 米以上），或使用全遮光暗袋。关闭门窗杜绝任何外部光线进入。<br>
+·器材组装：双手洗净擦干，将显影罐、片轴、胶卷放入操作区域。先检查片轴螺旋槽是否顺滑，再徒手拆开胶卷包装，避免指甲刮伤乳剂面。<br>
+·装卷操作：左手握住片轴中心，右手轻拉胶卷片头，沿螺旋槽缓慢卷入，确保胶卷紧密贴合且不重叠。完成后将片轴放入显影罐，旋紧盖子并检查密封圈是否完全密封，防止漏光。
+            </p>
+            <p class="step-description">
+            
+            </p>
+          </div>
+        </div>
+        <div class="step-icon">
+          <img src="image/路径 11.webp" alt="步骤图标">
+          <img src="image/组 378.webp" alt="步骤图标"
+            style="position: absolute; width: 70px; height: auto; margin-left: -90px;   margin-top: -40px; ">
+        </div>
+      </section>
+
+      <!-- Step 02 - Left Text, Right Image -->
+      <section class="step-section">
+        <div class="step-content right-image">
+          <div class="image-container">
+            <img src="image/组 379.webp" alt="步骤2图片" class="main-image" style="margin-top: -50px;">
+          </div>
+          <div class="text-content">
+            <h2 class="step-title">STEP 02 药液循环显影定影</h2>
+            <p class="step-description">
+              ·显影激活：将显影罐放入 20℃恒温水浴预热 2 分钟，快速注入显影液，同时按下计时器。前 1 分钟持续匀速搅动，之后每 30 秒翻转显影罐 5 次，确保药液均匀接触胶片。根据胶卷类型控制时间，结束后迅速倒回显影液瓶。<br>
+·停显终止：立即注入停显液（或清水），轻轻搅动 1 分钟，中和显影液碱性，避免过度显影。<br>
+·定影固化：换入定影液，保持 20℃环境，初期每分钟翻转 5 次，之后每分钟翻转 3 次。观察胶片片基，待其完全透明后再延长 2 分钟，固定影像防止褪色。
+            </p>
+            <p class="step-description">
+            </p>
+          </div>
+
+        </div>
+        <div class="step-icon">
+          <img src="image/组 380.webp" alt="步骤图标"
+            style="position: absolute; width: 70px; height: auto; margin-left: -30px;  margin-top: -40px;  ">
+          <img src="image/路径 12.webp" alt="步骤图标">
+
+        </div>
+      </section>
+
+      <!-- Step 03 - Left Image, Right Text -->
+      <section class="step-section">
+        <div class="step-content left-image">
+          <div class="image-container">
+            <img src="image/组 381.webp" alt="步骤3图片" class="main-image">
+          </div>
+          <div class="text-content" style="margin-top: -40px;">
+            <h2 class="step-title">STEP 03 水洗与干燥处理</h2>
+            <p class="step-description">
+              ·彻底水洗：使用 30℃温水流水冲洗 20 分钟，每 5 分钟更换一次水；或使用海波清除剂浸泡 5 分钟，加速残留药液清除。<br>
+·防渍处理：水洗后将胶片浸入湿润剂（如 Photo-Flo）10 秒，减少干燥时的水痕。<br>
+·悬挂干燥：用夹子夹住胶片两端，悬挂于无尘、通风且避光的环境，自然干燥 6-12 小时，避免灰尘附着。
+            </p>
+            <p class="step-description">
+            </p>
+          </div>
+        </div>
+        <div class="step-icon">
+          <img src="image/路径 11.webp" alt="步骤图标">
+          <img src="image/组 382.webp" alt="步骤图标"
+            style="position: absolute; width: 70px; height: auto; margin-left: -90px;  margin-top: -50px;  ">
+        </div>
+      </section>
+
+      <!-- Step 04 - Left Text, Right Image -->
+      <section class="step-section" style="margin-top: -50px;">
+        <div class="step-content right-image">
+          <div class="image-container">
+            <img src="image/组 383.webp" alt="步骤4图片" class="main-image" style="margin-top: -40px;">
+          </div>
+          <div class="text-content">
+            <h2 class="step-title">STEP 04 裁切标注与存档</h2>
+            <p class="step-description">
+              ·裁切整理：胶片完全干燥后，用锋利剪刀修剪片头，裁切成合适长度（如 6-8 张 / 卷）。<br>
+·参数记录：使用油性笔在胶片袋标注冲洗信息，包括胶卷型号、显影液类型、温度、时间等，便于复盘优化。<br>
+·妥善保存：将胶片装入防静电袋，置于阴凉干燥处，避免挤压和高温环境，完成冲洗全流程。
+            </p>
+            <p class="step-description">
+              
+            </p>
+          </div>
+
+        </div>
+
+      </section>
+    </div>
+
+    <div class="film-history-content">
+      <img src="image/v2.webp" alt="蓝色胶卷" class="film-icon">
+      <video src="image/v.mp4" controls></video>
+    </div>
+
+  </section>
+  <!-- 胶片纪程区块 结束 -->
+
+  <!-- 页脚 -->
+  <section class="footer-bg-section">
+      <div class="footer-bg">
+      <img src="image/70.webp" alt="" class="footer-bg-img1">
+    </div>
+    <div class="footer-bg-img-2">
+      <img src="image/蒙版组 14.webp" alt="" class="footer-bg-img2" id="fullscreenTarget">
+      <div class="footer-bg-text">
+        <p>Not Just a Hobby</p>
+        <p>-It's a Lifestyle</p>
+        <p>Wrapped in 35mm 5Pools</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 返回顶部按钮 -->
+  <div class="back-to-top">
+    <img src="image/组 52.webp" alt="返回顶部" class="back-to-top-img">
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+  <script src="script.js"></script>
+
+  <!-- 上传作品弹窗 -->
+  <div class="upload-modal" id="uploadModal">
+    <div class="upload-modal-content">
+      <span class="upload-modal-close" id="uploadModalClose">&times;</span>
+
+      <!-- 顶部标签页 -->
+      <div class="upload-tabs">
+        <button class="upload-tab active" data-tab="video">上传视频</button>
+        <button class="upload-tab" data-tab="image">上传图文</button>
+        <button class="upload-tab" data-tab="article">写长文</button>
+        <div class="upload-draft">
+          <svg class="draft-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span>草稿箱(0)</span>
+        </div>
+      </div>
+
+      <!-- 上传区域 -->
+      <div class="upload-area" id="uploadArea">
+        <div class="upload-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+        </div>
+        <p class="upload-hint">拖拽视频到此或点击上传</p>
+        <button class="upload-btn">上传视频</button>
+        <input type="file" id="fileInput" accept="video/*,image/*" hidden>
+      </div>
+
+      <!-- 底部信息 -->
+      <div class="upload-info">
+        <div class="upload-info-item">
+          <h4>视频大小</h4>
+          <p>支持时长4小时以内，<br>最大20GB的视频文件</p>
+        </div>
+        <div class="upload-info-item">
+          <h4>视频格式</h4>
+          <p>支持常用视频格式，<br>推荐使用mp4、mov</p>
+        </div>
+        <div class="upload-info-item">
+          <h4>视频分辨率</h4>
+          <p>超过1080P的视频用网页端上传画质更清晰</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 上传弹窗功能
+    document.addEventListener('DOMContentLoaded', function() {
+      const uploadModal = document.getElementById('uploadModal');
+      const uploadModalClose = document.getElementById('uploadModalClose');
+      const uploadWorkBtn = document.querySelector('.icon-link');
+      const uploadTabs = document.querySelectorAll('.upload-tab');
+      const uploadArea = document.getElementById('uploadArea');
+      const fileInput = document.getElementById('fileInput');
+
+      // 打开弹窗
+      if (uploadWorkBtn) {
+        uploadWorkBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          uploadModal.style.display = 'flex';
+        });
+      }
+
+      // 关闭弹窗
+      uploadModalClose.addEventListener('click', function() {
+        uploadModal.style.display = 'none';
+      });
+
+      // 点击背景关闭
+      uploadModal.addEventListener('click', function(e) {
+        if (e.target === uploadModal) {
+          uploadModal.style.display = 'none';
+        }
+      });
+
+      // ESC键关闭
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && uploadModal.style.display === 'flex') {
+          uploadModal.style.display = 'none';
+        }
+      });
+
+      // 标签页切换
+      uploadTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          uploadTabs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+
+          // 根据标签更新上传区域内容
+          const tabType = this.dataset.tab;
+          updateUploadArea(tabType);
+        });
+      });
+
+      // 更新上传区域
+      function updateUploadArea(type) {
+        const uploadHint = uploadArea.querySelector('.upload-hint');
+        const uploadBtn = uploadArea.querySelector('.upload-btn');
+
+        if (type === 'video') {
+          uploadHint.textContent = '拖拽视频到此或点击上传';
+          uploadBtn.textContent = '上传视频';
+          fileInput.accept = 'video/*';
+        } else if (type === 'image') {
+          uploadHint.textContent = '拖拽图片到此或点击上传';
+          uploadBtn.textContent = '上传图片';
+          fileInput.accept = 'image/*';
+        } else if (type === 'article') {
+          uploadHint.textContent = '点击开始撰写长文';
+          uploadBtn.textContent = '开始写作';
+        }
+      }
+
+      // 点击上传按钮触发文件选择
+      const uploadBtn = uploadArea.querySelector('.upload-btn');
+      uploadBtn.addEventListener('click', function() {
+        const activeTab = document.querySelector('.upload-tab.active');
+        if (activeTab.dataset.tab !== 'article') {
+          fileInput.click();
+        } else {
+          alert('长文编辑功能开发中...');
+        }
+      });
+
+      // 文件选择处理
+      fileInput.addEventListener('change', function(e) {
+        if (e.target.files.length > 0) {
+          alert('已选择文件: ' + e.target.files[0].name);
+        }
+      });
+
+      // 拖拽上传
+      uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.style.backgroundColor = '#e8e8e8';
+      });
+
+      uploadArea.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        this.style.backgroundColor = '#f5f5f5';
+      });
+
+      uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.style.backgroundColor = '#f5f5f5';
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          alert('已拖拽文件: ' + files[0].name);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

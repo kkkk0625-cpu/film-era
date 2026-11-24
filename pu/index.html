@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>胶片种类-菲林纪元</title>
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+  .container {
+    display: flex;
+    min-height: 100vh;
+    max-width: 1100px;
+    margin: 0 auto;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  /* Sidebar Styles */
+  .sidebar {
+    width: 300px;
+
+    border-radius: 8px;
+    padding: 20px;
+    height: fit-content;
+
+  }
+
+  .search-section {
+    margin-bottom: 25px;
+  }
+
+  .search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px 0px rgba(128, 128, 128, 0.349);
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+
+    outline: none;
+  }
+
+  .search-input:focus {
+    border-color: #007bff;
+  }
+
+  .search-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+  }
+
+  .filter-section {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+  }
+
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 15px;
+    user-select: none;
+  }
+
+  .filter-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .dropdown-arrow {
+    font-size: 12px;
+    color: #666;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    padding: 5px;
+  }
+
+  .dropdown-arrow.collapsed {
+    transform: rotate(-90deg);
+  }
+
+  .filter-content {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    max-height: 500px;
+    opacity: 1;
+  }
+
+  .filter-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  .checkbox-item,
+  .radio-item {
+    display: flex;
+    width: 105px;
+    align-items: center;
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+    background-color: white;
+    padding: 5px 10px 5px 5px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.11);
+    margin: 10px;
+    border-radius: 10px;
+    /* white-space: nowrap; */
+    transition: all 0.3s ease;
+  }
+
+  .checkbox-item:hover,
+  .radio-item:hover {
+    background-color: #f5f5f5;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  .checkbox-item:has(input:checked),
+  .radio-item:has(input:checked) {
+    background-color: #e8f4fd;
+    box-shadow: 0 0 0 2px #007bff;
+    color: #007bff;
+  }
+
+  .checkbox-item input,
+  .radio-item input {
+    display: none;
+  }
+
+  /* 筛选结果为空时的提示 */
+  .no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+    font-size: 16px;
+  }
+
+  .no-results-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+
+  /* 产品卡片筛选动画 */
+  .product-card {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .product-card.filtered-out {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  .price-range {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .price-input-group {
+    flex: 1;
+  }
+
+  .price-input-group label {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+
+  .price-input {
+    width: 90%;
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.11);
+
+    border-radius: 10px;
+  }
+
+  .material-options {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 8px;
+  }
+
+  .material-item {
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+  }
+
+  .material-item input {
+    margin-right: 6px;
+  }
+
+  .occasion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .occasion-item {
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+  }
+
+  .occasion-item input {
+    margin-right: 6px;
+  }
+
+  /* Main Content Styles */
+  .main-content {
+    flex: 1;
+
+    border-radius: 8px;
+    padding: 20px;
+
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .product-card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .product-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .product-image {
+    margin-bottom: 12px;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 6px;
+
+  }
+
+  .product-name {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .icon img {
+    width: 16px;
+    margin-top: 5px;
+    margin-right: 5px;
+  }
+
+  .flex {
+    display: flex;
+    justify-content: center;
+  }
+</style>
+
+<body>
+  <!-- 右上角功能区 -->
+  <div class="top-right-actions-container">
+    <div class="top-right-actions">
+      <div href="#" class="icon-link"><img src="image/组 42.webp" alt="上传作品" class="nav-icon">上传作品</div>
+      <span class="nav-separator">|</span>
+      <div href="#" class="icon-link"><img src="image/组 43.webp" alt="登录/注册" class="nav-icon">登录/注册</div>
+    </div>
+  </div>
+
+  <!-- 顶部导航与LOGO -->
+  <div class="main-topbar">
+    <div class="main-nav-left">
+      <a href="#">历史长廊</a>
+      <span class="nav-separator">|</span>
+      <a href="../lab/index.html">模拟实验室</a>
+      <span class="nav-separator">|</span>
+      <div class="dropdown">
+        <a href="javascript:void(0)" style="color: red;pointer-events:none;">知识仓储</a>
+        <div class="dropdown-content">
+          <a href="">器材种类</a>
+          <a href="../pu/index.html">胶片种类</a>
+          <a href="../Sweep/index.html">冲扫教程</a>
+          <a href="">收藏指南</a>
+        </div>
+      </div>
+    </div>
+    <div class="main-logo">
+      <a href="../index.html"><img src="image/组 44.webp" alt="LOGO"></a>
+    </div>
+    <div class="main-nav-right">
+      <a href="../news/index.html">精选资讯</a>
+      <span class="nav-separator">|</span>
+      <a href="../community/index.html">菲林社区</a>
+      <span class="nav-separator">|</span>
+      <a href="../about/index.html">关于菲林纪元</a>
+    </div>
+  </div>
+
+  <!-- 主图区域 -->
+  <div class="main-hero">
+    <div class="main-hero-img-wrap">
+      <img src="image/减去 1.webp" alt="主图" class="main-hero-img" id="main-hero-img">
+      <div class="main-hero-slogan">
+        <p>Tracing back to the </p>
+        <p> light - shadow</p>
+        <p>moment in 1826, </p>
+        <p>the history of film first</p>
+        <p>glimmers.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="film-history-section">
+    <div class="film-history-content">
+      <img src="image/组 375.webp" alt="蓝色胶卷" class="film-icon">
+    </div>
+  </section>
+  <div class="container">
+
+
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <!-- Search Box -->
+      <div class="search-section">
+        <div class="search-box">
+          <input type="text" placeholder="请输入关键词搜索" class="search-input">
+          <button class="search-btn">🔍</button>
+        </div>
+      </div>
+
+      <!-- Digital Category Filter -->
+      <div class="filter-section">
+        <div class="filter-header">
+          <h3>类型</h3>
+          <span class="dropdown-arrow">▼</span>
+        </div>
+        <div class="filter-content">
+          <label class="checkbox-item">
+            <input type="checkbox" name="type" value="彩色负片" data-filter="type">
+            <div class="icon"><img src="image/film.webp"></div>
+            <span>彩色负片</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="type" value="彩色反转片" data-filter="type">
+            <div class="icon"><img src="image/film.webp"></div>
+            <span>彩色反转片</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="type" value="黑白负片" data-filter="type">
+            <div class="icon"><img src="image/film.webp"></div>
+            <span>黑白负片</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="type" value="黑白反转片" data-filter="type">
+            <div class="icon"><img src="image/film.webp"></div>
+            <span>黑白反转片</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Domain Category Filter -->
+      <div class="filter-section">
+        <div class="filter-header">
+          <h3>感光度</h3>
+          <span class="dropdown-arrow">▼</span>
+        </div>
+        <div class="filter-content">
+          <label class="checkbox-item">
+            <input type="checkbox" name="iso" value="100" data-filter="iso">
+            <div class="icon"><img src="image/iso.webp"></div>
+            <span>100</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="iso" value="200" data-filter="iso">
+            <div class="icon"><img src="image/iso.webp"></div>
+            <span>200</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="iso" value="400" data-filter="iso">
+            <div class="icon"><img src="image/iso.webp"></div>
+            <span>400</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="iso" value="800" data-filter="iso">
+            <div class="icon"><img src="image/iso.webp"></div>
+            <span>800</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Manufacturer Filter -->
+      <div class="filter-section">
+        <div class="filter-header">
+          <h3>颗粒度</h3>
+          <span class="dropdown-arrow">▼</span>
+        </div>
+        <div class="filter-content">
+          <label class="radio-item">
+            <input type="radio" name="grain" value="极细" data-filter="grain">
+            <div class="icon"><img src="image/grain.webp"></div>
+            <span>极细</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="grain" value="正常" data-filter="grain">
+            <div class="icon"><img src="image/grain.webp"></div>
+            <span>正常</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="grain" value="细" data-filter="grain">
+            <div class="icon"><img src="image/grain.webp"></div>
+            <span>细</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="grain" value="中等" data-filter="grain">
+            <div class="icon"><img src="image/grain.webp"></div>
+            <span>中等</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Material Type Filter -->
+      <div class="filter-section">
+        <div class="filter-header">
+          <h3>对比度</h3>
+          <span class="dropdown-arrow">▼</span>
+        </div>
+        <div class="filter-content">
+          <label class="radio-item">
+            <input type="radio" name="contrast" value="低" data-filter="contrast">
+            <div class="icon"><img src="image/contrast.webp"></div>
+            <span>低</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="contrast" value="低-中" data-filter="contrast">
+            <div class="icon"><img src="image/contrast.webp"></div>
+            <span>低-中</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="contrast" value="中" data-filter="contrast">
+            <div class="icon"><img src="image/contrast.webp"></div>
+            <span>中</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="contrast" value="中-高" data-filter="contrast">
+            <div class="icon"><img src="image/contrast.webp"></div>
+            <span>中-高</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Usage Occasion Filter -->
+      <div class="filter-section">
+        <div class="filter-header">
+          <h3>使用场景</h3>
+          <span class="dropdown-arrow">▼</span>
+        </div>
+        <div class="filter-content">
+          <label class="radio-item">
+            <input type="radio" name="scene" value="自然" data-filter="scene">
+            <div class="icon"><img src="image/swamp.webp"></div>
+            <span>自然</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="scene" value="运动" data-filter="scene">
+            <div class="icon"><img src="image/tennis-2.webp"></div>
+            <span>运动</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="scene" value="人像" data-filter="scene">
+            <div class="icon"><img src="image/portrait.webp"></div>
+            <span>人像</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="scene" value="风景" data-filter="scene">
+            <div class="icon"><img src="image/landscape.webp"></div>
+            <span>风景</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="scene" value="街拍" data-filter="scene">
+            <div class="icon"><img src="image/city.webp"></div>
+            <span>街拍</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="scene" value="通用" data-filter="scene">
+            <div class="icon"><img src="image/unchecked-circle.webp"></div>
+            <span>通用</span>
+          </label>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <div class="product-grid">
+        <!-- Product Cards -->
+        <div class="product-card" data-type="黑白负片" data-iso="50" data-grain="极细" data-contrast="中" data-scene="人像">
+          <div class="product-image">
+            <img src="image/ilford-pan-f-plus.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">ilford-pan-f-plus</div>
+        </div>
+
+        <div class="product-card" data-type="黑白负片" data-iso="200" data-grain="细" data-contrast="中-高" data-scene="风景">
+          <div class="product-image">
+            <img src="image/ilford-sfx-200.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">ilford-sfx-200</div>
+        </div>
+
+        <div class="product-card" data-type="黑白负片" data-iso="400" data-grain="正常" data-contrast="中" data-scene="通用">
+          <div class="product-image">
+            <img src="image/ilford-xp2-super.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">ilford-xp2-super</div>
+        </div>
+
+        <div class="product-card" data-type="黑白负片" data-iso="100" data-grain="细" data-contrast="中" data-scene="通用">
+          <div class="product-image">
+            <img src="image/kentmere-100.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">kentmere-100</div>
+        </div>
+
+        <div class="product-card" data-type="黑白负片" data-iso="400" data-grain="正常" data-contrast="中" data-scene="通用">
+          <div class="product-image">
+            <img src="image/kentmere-400.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">kentmere-400</div>
+        </div>
+
+        <div class="product-card" data-type="彩色负片" data-iso="100" data-grain="细" data-contrast="低-中" data-scene="人像">
+          <div class="product-image">
+            <img src="image/kodak-proimage-100.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">kodak-proimage-100</div>
+        </div>
+
+        <div class="product-card" data-type="黑白负片" data-iso="100" data-grain="极细" data-contrast="中" data-scene="通用">
+          <div class="product-image">
+            <img src="image/kodak-t-max-100.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">kodak-t-max-100</div>
+        </div>
+
+        <div class="product-card" data-type="黑白负片" data-iso="400" data-grain="细" data-contrast="中" data-scene="通用">
+          <div class="product-image">
+            <img src="image/kodak-t-max-400.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">kodak-t-max-400</div>
+        </div>
+
+        <div class="product-card" data-type="彩色负片" data-iso="400" data-grain="正常" data-contrast="中" data-scene="通用">
+          <div class="product-image">
+            <img src="image/kodak-ultramax-400.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">kodak-ultramax-400</div>
+        </div>
+
+        <div class="product-card" data-type="彩色负片" data-iso="400" data-grain="正常" data-contrast="中-高" data-scene="风景">
+          <div class="product-image">
+            <img src="image/lomochrome-purple-xr.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">lomochrome-purple-xr</div>
+        </div>
+
+        <div class="product-card" data-type="彩色负片" data-iso="400" data-grain="正常" data-contrast="中" data-scene="通用">
+          <div class="product-image">
+            <img src="image/lomography-cn-400.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">lomography-cn-400</div>
+        </div>
+
+        <div class="product-card" data-type="黑白负片" data-iso="400" data-grain="正常" data-contrast="中" data-scene="通用">
+          <div class="product-image">
+            <img src="image/lomography-lady-grey.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">lomography-lady-grey</div>
+        </div>
+
+        <div class="product-card" data-type="黑白负片" data-iso="320" data-grain="细" data-contrast="低" data-scene="人像">
+          <div class="product-image">
+            <img src="image/retro-pan-320-soft.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">retro-pan-320-soft</div>
+        </div>
+
+        <div class="product-card" data-type="黑白负片" data-iso="20" data-grain="极细" data-contrast="高" data-scene="风景">
+          <div class="product-image">
+            <img src="image/adox-cms-20-ii (1).webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">adox-cms-20-ii</div>
+        </div>
+
+        <div class="product-card" data-type="黑白反转片" data-iso="160" data-grain="细" data-contrast="中-高" data-scene="通用">
+          <div class="product-image">
+            <img src="image/adox-scala-160.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">adox-scala-160</div>
+        </div>
+
+        <div class="product-card" data-type="黑白负片" data-iso="100" data-grain="细" data-contrast="中" data-scene="通用">
+          <div class="product-image">
+            <img src="image/adox-silvermax.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">adox-silvermax</div>
+        </div>
+
+        <div class="product-card" data-type="黑白负片" data-iso="400" data-grain="正常" data-contrast="中" data-scene="通用">
+          <div class="product-image">
+            <img src="image/agfa-apx-400.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">agfa-apx-400</div>
+        </div>
+
+        <div class="product-card" data-type="彩色负片" data-iso="200" data-grain="细" data-contrast="中" data-scene="通用">
+          <div class="product-image">
+            <img src="image/agfa-vista-plus-200.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">agfa-vista-plus-200</div>
+        </div>
+
+        <div class="product-card" data-type="彩色负片" data-iso="800" data-grain="中等" data-contrast="中-高" data-scene="街拍">
+          <div class="product-image">
+            <img src="image/cinestill-800t.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">cinestill-800t</div>
+        </div>
+
+        <div class="product-card" data-type="黑白负片" data-iso="100" data-grain="细" data-contrast="中" data-scene="通用">
+          <div class="product-image">
+            <img src="image/fomapan-100-classic.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">fomapan-100-classic</div>
+        </div>
+
+        <div class="product-card" data-type="彩色负片" data-iso="200" data-grain="细" data-contrast="中" data-scene="通用">
+          <div class="product-image">
+            <img src="image/fuji-c200.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">fuji-c200</div>
+        </div>
+
+        <div class="product-card" data-type="黑白负片" data-iso="100" data-grain="极细" data-contrast="中" data-scene="风景">
+          <div class="product-image">
+            <img src="image/fuji-neopan-acros-100.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">fuji-neopan-acros-100</div>
+        </div>
+
+        <div class="product-card" data-type="彩色负片" data-iso="400" data-grain="细" data-contrast="低-中" data-scene="人像">
+          <div class="product-image">
+            <img src="image/fuji-pro-400h.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">fuji-pro-400h</div>
+        </div>
+
+        <div class="product-card" data-type="彩色反转片" data-iso="100" data-grain="极细" data-contrast="中-高" data-scene="风景">
+          <div class="product-image">
+            <img src="image/fuji-provia-100f.webp" alt="胶卷产品">
+          </div>
+          <div class="product-name">fuji-provia-100f</div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <!-- 胶片纪程区块 结束 -->
+
+  <!-- 页脚 -->
+  <section class="footer-bg-section">
+      <div class="footer-bg">
+      <img src="image/70.webp" alt="" class="footer-bg-img1">
+    </div>
+    <div class="footer-bg-img-2">
+      <img src="image/蒙版组 14.webp" alt="" class="footer-bg-img2" id="fullscreenTarget">
+      <div class="footer-bg-text">
+        <p>Not Just a Hobby</p>
+        <p>-It's a Lifestyle</p>
+        <p>Wrapped in 35mm 5Pools</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 返回顶部按钮 -->
+  <div class="back-to-top">
+    <img src="image/组 52.webp" alt="返回顶部" class="back-to-top-img">
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+  <script src="script.js"></script>
+
+  <!-- 上传作品弹窗 -->
+  <div class="upload-modal" id="uploadModal">
+    <div class="upload-modal-content">
+      <span class="upload-modal-close" id="uploadModalClose">&times;</span>
+
+      <!-- 顶部标签页 -->
+      <div class="upload-tabs">
+        <button class="upload-tab active" data-tab="video">上传视频</button>
+        <button class="upload-tab" data-tab="image">上传图文</button>
+        <button class="upload-tab" data-tab="article">写长文</button>
+        <div class="upload-draft">
+          <svg class="draft-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span>草稿箱(0)</span>
+        </div>
+      </div>
+
+      <!-- 上传区域 -->
+      <div class="upload-area" id="uploadArea">
+        <div class="upload-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+        </div>
+        <p class="upload-hint">拖拽视频到此或点击上传</p>
+        <button class="upload-btn">上传视频</button>
+        <input type="file" id="fileInput" accept="video/*,image/*" hidden>
+      </div>
+
+      <!-- 底部信息 -->
+      <div class="upload-info">
+        <div class="upload-info-item">
+          <h4>视频大小</h4>
+          <p>支持时长4小时以内，<br>最大20GB的视频文件</p>
+        </div>
+        <div class="upload-info-item">
+          <h4>视频格式</h4>
+          <p>支持常用视频格式，<br>推荐使用mp4、mov</p>
+        </div>
+        <div class="upload-info-item">
+          <h4>视频分辨率</h4>
+          <p>超过1080P的视频用网页端上传画质更清晰</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 上传弹窗功能
+    document.addEventListener('DOMContentLoaded', function() {
+      const uploadModal = document.getElementById('uploadModal');
+      const uploadModalClose = document.getElementById('uploadModalClose');
+      const uploadWorkBtn = document.querySelector('.icon-link');
+      const uploadTabs = document.querySelectorAll('.upload-tab');
+      const uploadArea = document.getElementById('uploadArea');
+      const fileInput = document.getElementById('fileInput');
+
+      // 打开弹窗
+      if (uploadWorkBtn) {
+        uploadWorkBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          uploadModal.style.display = 'flex';
+        });
+      }
+
+      // 关闭弹窗
+      uploadModalClose.addEventListener('click', function() {
+        uploadModal.style.display = 'none';
+      });
+
+      // 点击背景关闭
+      uploadModal.addEventListener('click', function(e) {
+        if (e.target === uploadModal) {
+          uploadModal.style.display = 'none';
+        }
+      });
+
+      // ESC键关闭
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && uploadModal.style.display === 'flex') {
+          uploadModal.style.display = 'none';
+        }
+      });
+
+      // 标签页切换
+      uploadTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          uploadTabs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+
+          // 根据标签更新上传区域内容
+          const tabType = this.dataset.tab;
+          updateUploadArea(tabType);
+        });
+      });
+
+      // 更新上传区域
+      function updateUploadArea(type) {
+        const uploadHint = uploadArea.querySelector('.upload-hint');
+        const uploadBtn = uploadArea.querySelector('.upload-btn');
+
+        if (type === 'video') {
+          uploadHint.textContent = '拖拽视频到此或点击上传';
+          uploadBtn.textContent = '上传视频';
+          fileInput.accept = 'video/*';
+        } else if (type === 'image') {
+          uploadHint.textContent = '拖拽图片到此或点击上传';
+          uploadBtn.textContent = '上传图片';
+          fileInput.accept = 'image/*';
+        } else if (type === 'article') {
+          uploadHint.textContent = '点击开始撰写长文';
+          uploadBtn.textContent = '开始写作';
+        }
+      }
+
+      // 点击上传按钮触发文件选择
+      const uploadBtn = uploadArea.querySelector('.upload-btn');
+      uploadBtn.addEventListener('click', function() {
+        const activeTab = document.querySelector('.upload-tab.active');
+        if (activeTab.dataset.tab !== 'article') {
+          fileInput.click();
+        } else {
+          alert('长文编辑功能开发中...');
+        }
+      });
+
+      // 文件选择处理
+      fileInput.addEventListener('change', function(e) {
+        if (e.target.files.length > 0) {
+          alert('已选择文件: ' + e.target.files[0].name);
+        }
+      });
+
+      // 拖拽上传
+      uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.style.backgroundColor = '#e8e8e8';
+      });
+
+      uploadArea.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        this.style.backgroundColor = '#f5f5f5';
+      });
+
+      uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.style.backgroundColor = '#f5f5f5';
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          alert('已拖拽文件: ' + files[0].name);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
