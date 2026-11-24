@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>精选资讯 - 菲林纪元</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    gap: 30px;
+  }
+
+  /* Main Content Styles */
+  .main-content {
+    flex: 2;
+
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .article-card {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s ease;
+  }
+
+  .article-card:last-of-type {
+    border-bottom: none;
+  }
+
+  .article-card:hover {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 0 -20px;
+  }
+
+  .article-image {
+    flex-shrink: 0;
+  }
+
+  .article-image img {
+    width: 160px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .article-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .article-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #8b1919;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .article-title:hover {
+    color: #6b1111;
+  }
+
+  .article-excerpt {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    flex: 1;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .publish-date {
+    font-size: 12px;
+    color: #999;
+  }
+
+  /* Pagination Styles */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+  }
+
+  .pagination-btn {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+
+    color: #666;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+  }
+
+  .pagination-btn:hover {
+    background: #8b1919;
+    color: white;
+    border-color: #570808;
+  }
+
+  /* Sidebar Styles */
+  .sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+  }
+
+  .sidebar-section {
+
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .section-icon {
+    font-size: 16px;
+  }
+
+  .section-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .category-list,
+  .tag-list {
+    list-style: none;
+  }
+
+  .category-list li {
+    padding: 25px 10px;
+    width: 150px;
+    background-color: white;
+    box-shadow: 0px 2px 10px 0px rgba(128, 128, 128, 0.336);
+    padding-left: 30px;
+
+  }
+
+  .category-list li a {
+    margin-left: 10px;
+
+
+  }
+
+  .category-list li,
+  .tag-list li {
+    margin-bottom: 8px;
+  }
+
+  .category-list a,
+  .tag-list a {
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+  }
+
+  .category-list a:hover,
+  .tag-list a:hover {
+    color: #007bff;
+  }
+
+  /* 筛选相关样式 */
+  .filter-category {
+    transition: all 0.3s ease;
+  }
+
+  .filter-category:hover {
+    background-color: #f5f5f5;
+  }
+
+  .filter-category.active {
+    background-color: rgb(117, 16, 16) !important;
+  }
+
+  .filter-category.active span {
+    color: white !important;
+  }
+
+  .filter-category.active img {
+    filter: invert(1);
+  }
+
+  /* 第一个分类图标特殊处理：未选中时反相，选中时正常 */
+  .filter-category:first-child img {
+    filter: invert(1);
+  }
+
+  .filter-category:first-child.active img {
+    filter: none;
+  }
+
+  .tag-btn {
+    transition: all 0.3s ease;
+  }
+
+  .tag-btn:hover {
+    background: rgb(116, 15, 15);
+    color: white;
+  }
+
+  .tag-btn.active {
+    background-color: rgb(170, 34, 34) !important;
+    color: white !important;
+  }
+
+  /* 文章卡片筛选动画 */
+  .article-card {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .article-card.filtered-out {
+    display: none;
+  }
+
+  .search-box {
+    display: flex;
+    gap: 10px;
+  }
+
+  .search-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+  }
+
+  .search-input:focus {
+    border-color: #007bff;
+  }
+
+  .search-btn {
+    padding: 8px 16px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+  }
+
+  .search-btn:hover {
+    background: #0056b3;
+  }
+
+  .stats-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .stat-item:last-child {
+    border-bottom: none;
+  }
+
+  .stat-label {
+    font-size: 14px;
+    color: #666;
+  }
+
+  .stat-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #007bff;
+  }
+
+  .popular-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag-btn {
+    padding: 12px 42px;
+    background: #f8f9fa;
+    color: #666;
+    border: 1px solid #e9ecef;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+  }
+
+  .tag-btn:hover {
+    background: rgb(116, 15, 15);
+    color: white;
+
+  }
+</style>
+
+<body>
+  <!-- 右上角功能区 -->
+  <div class="top-right-actions-container">
+    <div class="top-right-actions">
+      <div href="#" class="icon-link"><img src="image/组 42.webp" alt="上传作品" class="nav-icon">上传作品</div>
+      <span class="nav-separator">|</span>
+      <div href="#" class="icon-link"><img src="image/组 43.webp" alt="登录/注册" class="nav-icon">登录/注册</div>
+    </div>
+  </div>
+
+  <!-- 顶部导航与LOGO -->
+  <div class="main-topbar">
+    <div class="main-nav-left">
+      <a href="../history/index.html">历史长廊</a>
+      <span class="nav-separator">|</span>
+      <a href="../lab/index.html">树顶实验室</a>
+      <span class="nav-separator">|</span>
+      <div class="dropdown">
+        <a href="javascript:void(0)">知识仪馆</a>
+        <div class="dropdown-content">
+          <a href="">器材种类</a>
+          <a href="../pu/index.html">胶片种类</a>
+          <a href="../Sweep/index.html">冲扫教程</a>
+          <a href="">收藏指南</a>
+        </div>
+      </div>
+    </div>
+    <div class="main-logo">
+      <a href="../index.html"><img src="image/组 44.webp" alt="LOGO"></a>
+    </div>
+    <div class="main-nav-right">
+      <a href="../news/index.html" style="color: red;pointer-events:none;">精选资讯</a>
+      <span class="nav-separator">|</span>
+      <a href="../community/index.html">菲林社区</a>
+      <span class="nav-separator">|</span>
+      <a href="../about/index.html">关于菲林纪元</a>
+    </div>
+  </div>
+
+  <!-- 页面主体内容 -->
+  <div class="page-content">
+    <div class="main-hero">
+      <div class="main-hero-img-wrap">
+        <img src="image/减去 1.webp" alt="知识仪馆主图" class="main-hero-img">
+        <div class="main-hero-slogan">
+          Film News Treasure Chest: <br>
+          Ingeniously Selected Light and<br>
+          Shadow, Unveiling a New Vision<br>
+          of Imaging
+        </div>
+      </div>
+    </div>
+    <!-- 这里是知识仪馆页面的具体内容 -->
+  </div>
+
+
+  <div class="container">
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Article Card 1 -->
+      <article class="article-card" data-category="技术" data-tags="指南,风景">
+        <div class="article-image">
+          <img src="image/p (1).webp" alt="文章图片">
+        </div>
+        <div class="article-content">
+          <h2 class="article-title">一些拍摄胶片（金柯达）的翻车和复盘笔记📒</h2>
+          <p class="article-excerpt">
+            🎞️拍摄胶片最重要的就是正确测光，对焦，然后是合理用光了。
+其实只要用对了光线，金柯达拍出来也很好看的！
+上面是几张用金柯达拍的客片冲扫出的原图！
+......
+          </p>
+          <div class="article-meta">
+            <span class="publish-date">2022年6月21日</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article Card 2 -->
+      <article class="article-card" data-category="技术" data-tags="指南,胶片日常">
+        <div class="article-image">
+          <img src="image/p (2).webp" alt="文章图片">
+        </div>
+        <div class="article-content">
+          <h2 class="article-title">防止翻车！胶片新手拍摄注意事项</h2>
+          <p class="article-excerpt">
+            刚拍胶片时我翻车很多次，有时候兴致勃勃拍了很多，洗出来发现全白拍了，每次踩坑就当作交学费了，心态越拍越稳，因为拍胶片总会遇到意想不到的情况。
+总结了一些经验，希望能够给大家减少试错成本，毕竟现在胶片
+......
+          </p>
+          <div class="article-meta">
+            <span class="publish-date">2024年1月12日</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article Card 3 -->
+      <article class="article-card" data-category="设备" data-tags="指南,胶片日常">
+        <div class="article-image">
+          <img src="image/p (3).webp" alt="文章图片">
+        </div>
+        <div class="article-content">
+          <h2 class="article-title">分享我常用的胶卷🎞️</h2>
+          <p class="article-excerpt">
+            不知不觉我也入门了好几种常用的胶卷！以下从个人出发分享我对这几款胶卷的理解与使用感受～（个人角度出发，非正经测评🕊️）
+🎞️柯达金200（p1-2）
+这款是我的入门卷，也是我用的最多的胶卷。柯达金整体偏金
+......
+          </p>
+          <div class="article-meta">
+            <span class="publish-date">2024年1月10日</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article Card 4 -->
+      <article class="article-card" data-category="艺术创作" data-tags="氛围感,人像">
+        <div class="article-image">
+          <img src="image/p4.webp" alt="文章图片">
+        </div>
+        <div class="article-content">
+          <h2 class="article-title">找对风格的第一年🎞️</h2>
+          <p class="article-excerpt">
+            这一年里 我学会了
+先去感受 在感受中按下快门🏜️<br>
+...<br>
+相机：宾得115G 胶卷：全能400和富士c100 冲扫：星尘胶片馆
+          </p>
+          <div class="article-meta">
+            <span class="publish-date">2024年1月8日</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <button class="pagination-btn prev-btn">← 上一页</button>
+        <button class="pagination-btn next-btn">下一页 →</button>
+      </div>
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- Categories Section -->
+      <div class="sidebar-section">
+        <div class="section-header">
+          <span class="section-icon">📁</span>
+          <h3>分类</h3>
+        </div>
+
+
+        <ul class="category-list">
+          <li class="filter-category" data-category="技术" style="display: flex; justify-content: flex-start; cursor: pointer;"><img
+              src="image/组 366.png" style="width: 25px; height: auto;  height: 30px;  "><span
+              style="line-height: 30px; margin-left: 10px;">技术</span>
+          </li>
+          <li class="filter-category" data-category="历史" style="  display: flex; justify-content: flex-start; cursor: pointer;"><img src="image/shuben-.webp"
+              style="width: 25px; height: auto;  height: 30px;  "><span style="line-height: 30px; margin-left: 10px;">历史</span></li>
+          <li class="filter-category" data-category="设备" style="  display: flex; justify-content: flex-start; cursor: pointer;"><img src="image/Camera-roll.webp"
+              style="width: 25px; height: auto;  height: 30px;  "><span style="line-height: 30px; margin-left: 10px;">设备</span>
+          </li>
+          <li class="filter-category" data-category="艺术创作" style="  display: flex; justify-content: flex-start; cursor: pointer;"><img src="image/film.webp"
+              style="width: 25px; height: auto;  height: 30px;  "><span style="line-height: 30px; margin-left: 10px;">艺术创作</span></li>
+
+        </ul>
+      </div>
+
+
+
+
+
+
+      <!-- Popular Tags Section -->
+      <div class="sidebar-section">
+        <div class="section-header">
+          <span class="section-icon">🔥</span>
+          <h3>热门标签</h3>
+        </div>
+        <div class="popular-tags">
+          <span class="tag-btn" data-tag="指南" style="cursor: pointer;">指南</span>
+          <span class="tag-btn" data-tag="风景" style="cursor: pointer;">风景</span>
+          <span class="tag-btn" data-tag="摄影大赛" style="cursor: pointer;">摄影大赛</span>
+          <span class="tag-btn" data-tag="人像" style="cursor: pointer;">人像</span>
+          <span class="tag-btn" data-tag="氛围感" style="cursor: pointer;">氛围感</span>
+          <span class="tag-btn" data-tag="胶片日常" style="cursor: pointer;">胶片日常</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+  <!-- 页脚 -->
+
+  <section class="footer-bg-section">
+      <div class="footer-bg">
+      <img src="image/70.webp" alt="" class="footer-bg-img1">
+    </div>
+    <div class="footer-bg-img-2">
+      <img src="image/蒙版组 14.webp" alt="" class="footer-bg-img2" id="fullscreenTarget">
+      <div class="footer-bg-text">
+        <p>Not Just a Hobby</p>
+        <p>-It's a Lifestyle</p>
+        <p>Wrapped in 35mm 5Pools</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 返回顶部按钮 -->
+  <div class="back-to-top">
+    <img src="image/组 52.webp" alt="返回顶部" class="back-to-top-img">
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+  <script src="script.js"></script>
+
+  <!-- 上传作品弹窗 -->
+  <div class="upload-modal" id="uploadModal">
+    <div class="upload-modal-content">
+      <span class="upload-modal-close" id="uploadModalClose">&times;</span>
+
+      <!-- 顶部标签页 -->
+      <div class="upload-tabs">
+        <button class="upload-tab active" data-tab="video">上传视频</button>
+        <button class="upload-tab" data-tab="image">上传图文</button>
+        <button class="upload-tab" data-tab="article">写长文</button>
+        <div class="upload-draft">
+          <svg class="draft-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span>草稿箱(0)</span>
+        </div>
+      </div>
+
+      <!-- 上传区域 -->
+      <div class="upload-area" id="uploadArea">
+        <div class="upload-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+        </div>
+        <p class="upload-hint">拖拽视频到此或点击上传</p>
+        <button class="upload-btn">上传视频</button>
+        <input type="file" id="fileInput" accept="video/*,image/*" hidden>
+      </div>
+
+      <!-- 底部信息 -->
+      <div class="upload-info">
+        <div class="upload-info-item">
+          <h4>视频大小</h4>
+          <p>支持时长4小时以内，<br>最大20GB的视频文件</p>
+        </div>
+        <div class="upload-info-item">
+          <h4>视频格式</h4>
+          <p>支持常用视频格式，<br>推荐使用mp4、mov</p>
+        </div>
+        <div class="upload-info-item">
+          <h4>视频分辨率</h4>
+          <p>超过1080P的视频用网页端上传画质更清晰</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 上传弹窗功能
+    document.addEventListener('DOMContentLoaded', function() {
+      const uploadModal = document.getElementById('uploadModal');
+      const uploadModalClose = document.getElementById('uploadModalClose');
+      const uploadWorkBtn = document.querySelector('.icon-link');
+      const uploadTabs = document.querySelectorAll('.upload-tab');
+      const uploadArea = document.getElementById('uploadArea');
+      const fileInput = document.getElementById('fileInput');
+
+      // 打开弹窗
+      if (uploadWorkBtn) {
+        uploadWorkBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          uploadModal.style.display = 'flex';
+        });
+      }
+
+      // 关闭弹窗
+      uploadModalClose.addEventListener('click', function() {
+        uploadModal.style.display = 'none';
+      });
+
+      // 点击背景关闭
+      uploadModal.addEventListener('click', function(e) {
+        if (e.target === uploadModal) {
+          uploadModal.style.display = 'none';
+        }
+      });
+
+      // ESC键关闭
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && uploadModal.style.display === 'flex') {
+          uploadModal.style.display = 'none';
+        }
+      });
+
+      // 标签页切换
+      uploadTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          uploadTabs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+
+          // 根据标签更新上传区域内容
+          const tabType = this.dataset.tab;
+          updateUploadArea(tabType);
+        });
+      });
+
+      // 更新上传区域
+      function updateUploadArea(type) {
+        const uploadHint = uploadArea.querySelector('.upload-hint');
+        const uploadBtn = uploadArea.querySelector('.upload-btn');
+
+        if (type === 'video') {
+          uploadHint.textContent = '拖拽视频到此或点击上传';
+          uploadBtn.textContent = '上传视频';
+          fileInput.accept = 'video/*';
+        } else if (type === 'image') {
+          uploadHint.textContent = '拖拽图片到此或点击上传';
+          uploadBtn.textContent = '上传图片';
+          fileInput.accept = 'image/*';
+        } else if (type === 'article') {
+          uploadHint.textContent = '点击开始撰写长文';
+          uploadBtn.textContent = '开始写作';
+        }
+      }
+
+      // 点击上传按钮触发文件选择
+      const uploadBtn = uploadArea.querySelector('.upload-btn');
+      uploadBtn.addEventListener('click', function() {
+        const activeTab = document.querySelector('.upload-tab.active');
+        if (activeTab.dataset.tab !== 'article') {
+          fileInput.click();
+        } else {
+          alert('长文编辑功能开发中...');
+        }
+      });
+
+      // 文件选择处理
+      fileInput.addEventListener('change', function(e) {
+        if (e.target.files.length > 0) {
+          alert('已选择文件: ' + e.target.files[0].name);
+        }
+      });
+
+      // 拖拽上传
+      uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.style.backgroundColor = '#e8e8e8';
+      });
+
+      uploadArea.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        this.style.backgroundColor = '#f5f5f5';
+      });
+
+      uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.style.backgroundColor = '#f5f5f5';
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          alert('已拖拽文件: ' + files[0].name);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

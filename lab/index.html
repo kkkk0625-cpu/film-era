@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>模拟实验室-菲林纪元</title>
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- 右上角功能区 -->
+  <div class="top-right-actions-container">
+    <div class="top-right-actions">
+      <div href="#" class="icon-link"><img src="image/组 42.webp" alt="上传作品" class="nav-icon">上传作品</div>
+      <span class="nav-separator">|</span>
+      <div href="#" class="icon-link"><img src="image/组 43.webp" alt="登录/注册" class="nav-icon">登录/注册</div>
+    </div>
+  </div>
+
+  <!-- 顶部导航与LOGO -->
+  <div class="main-topbar">
+    <div class="main-nav-left">
+      <a href="../history/index.html">历史长廊</a>
+      <span class="nav-separator">|</span>
+      <a href="#" style="color: red;pointer-events:none;">模拟实验室</a>
+      <span class="nav-separator">|</span>
+      <div class="dropdown">
+        <a href="javascript:void(0)">知识仓储</a>
+        <div class="dropdown-content">
+          <a href="">器材种类</a>
+          <a href="../pu/index.html">胶片种类</a>
+          <a href="../Sweep/index.html">冲扫教程</a>
+          <a href="">收藏指南</a>
+        </div>
+      </div>
+    </div>
+    <div class="main-logo">
+      <a href="../index.html"><img src="image/组 37.webp" alt="LOGO"></a>
+    </div>
+    <div class="main-nav-right">
+      <a href="../news/index.html">精选资讯</a>
+      <span class="nav-separator">|</span>
+      <a href="../community/index.html">菲林社区</a>
+      <span class="nav-separator">|</span>
+      <a href="../about/index.html">关于我们</a>
+    </div>
+  </div>
+
+  <!-- 主图区域 -->
+  <div class="main-hero">
+    <div class="main-hero-img-wrap">
+      <img src="image/组 386.webp" alt="主图" class="main-hero-img" id="main-hero-img">
+    </div>
+  </div>、
+
+  <div class="lab-content-section">
+    <div class="lab-image-container">
+      <img src="image/组 387.webp" alt="实验室图片1" class="lab-image">
+    </div>
+    <div class="lab-image-container">
+      <!-- 滑轮控制组件 -->
+      <div class="slider-carousel-container">
+        <!-- 滑轮控制 -->
+        <div class="slider-control">
+          <div class="slider-track">
+            <div class="slider-labels-wrapper">
+              <div class="slider-labels">
+                <span class="slider-label" data-index="-5">-5</span>
+                <span class="slider-label" data-index="-4">-4</span>
+                <span class="slider-label" data-index="-3">-3</span>
+                <span class="slider-label" data-index="-2">-2</span>
+                <span class="slider-label" data-index="-1">-1</span>
+                <span class="slider-label active" data-index="0">0</span>
+                <span class="slider-label" data-index="1">+1</span>
+                <span class="slider-label" data-index="2">+2</span>
+                <span class="slider-label" data-index="3">+3</span>
+                <span class="slider-label" data-index="4">+4</span>
+                <span class="slider-label" data-index="5">+5</span>
+              </div>
+            </div>
+            <div class="slider-thumb"></div>
+          </div>
+        </div>
+        <!-- 固定背景图片 -->
+        <div class="slider-bg-image">
+          <img src="image/组 395.webp" alt="背景图片" class="bg-image">
+          <img src="image/imgbg.webp" alt="重叠图片" class="overlay-image">
+        </div>
+        <!-- 左右切换按钮 -->
+        <button class="carousel-btn carousel-prev">&#10094;</button>
+        <button class="carousel-btn carousel-next">&#10095;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <section class="footer-bg-section">
+      <div class="footer-bg">
+      <img src="image/70.webp" alt="" class="footer-bg-img1">
+    </div>
+    <div class="footer-bg-img-2">
+      <img src="image/蒙版组 14.webp" alt="" class="footer-bg-img2" id="fullscreenTarget">
+      <div class="footer-bg-text">
+        <p>Not Just a Hobby</p>
+        <p>-It's a Lifestyle</p>
+        <p>Wrapped in 35mm 5Pools</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 返回顶部按钮 -->
+  <div class="back-to-top">
+    <img src="image/组 52.webp" alt="返回顶部" class="back-to-top-img">
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+  <script src="script.js"></script>
+
+  <!-- 上传作品弹窗 -->
+  <div class="upload-modal" id="uploadModal">
+    <div class="upload-modal-content">
+      <span class="upload-modal-close" id="uploadModalClose">&times;</span>
+
+      <!-- 顶部标签页 -->
+      <div class="upload-tabs">
+        <button class="upload-tab active" data-tab="video">上传视频</button>
+        <button class="upload-tab" data-tab="image">上传图文</button>
+        <button class="upload-tab" data-tab="article">写长文</button>
+        <div class="upload-draft">
+          <svg class="draft-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span>草稿箱(0)</span>
+        </div>
+      </div>
+
+      <!-- 上传区域 -->
+      <div class="upload-area" id="uploadArea">
+        <div class="upload-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+        </div>
+        <p class="upload-hint">拖拽视频到此或点击上传</p>
+        <button class="upload-btn">上传视频</button>
+        <input type="file" id="fileInput" accept="video/*,image/*" hidden>
+      </div>
+
+      <!-- 底部信息 -->
+      <div class="upload-info">
+        <div class="upload-info-item">
+          <h4>视频大小</h4>
+          <p>支持时长4小时以内，<br>最大20GB的视频文件</p>
+        </div>
+        <div class="upload-info-item">
+          <h4>视频格式</h4>
+          <p>支持常用视频格式，<br>推荐使用mp4、mov</p>
+        </div>
+        <div class="upload-info-item">
+          <h4>视频分辨率</h4>
+          <p>超过1080P的视频用网页端上传画质更清晰</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 上传弹窗功能
+    document.addEventListener('DOMContentLoaded', function() {
+      const uploadModal = document.getElementById('uploadModal');
+      const uploadModalClose = document.getElementById('uploadModalClose');
+      const uploadWorkBtn = document.querySelector('.icon-link');
+      const uploadTabs = document.querySelectorAll('.upload-tab');
+      const uploadArea = document.getElementById('uploadArea');
+      const fileInput = document.getElementById('fileInput');
+
+      // 打开弹窗
+      if (uploadWorkBtn) {
+        uploadWorkBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          uploadModal.style.display = 'flex';
+        });
+      }
+
+      // 关闭弹窗
+      uploadModalClose.addEventListener('click', function() {
+        uploadModal.style.display = 'none';
+      });
+
+      // 点击背景关闭
+      uploadModal.addEventListener('click', function(e) {
+        if (e.target === uploadModal) {
+          uploadModal.style.display = 'none';
+        }
+      });
+
+      // ESC键关闭
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && uploadModal.style.display === 'flex') {
+          uploadModal.style.display = 'none';
+        }
+      });
+
+      // 标签页切换
+      uploadTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          uploadTabs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+
+          // 根据标签更新上传区域内容
+          const tabType = this.dataset.tab;
+          updateUploadArea(tabType);
+        });
+      });
+
+      // 更新上传区域
+      function updateUploadArea(type) {
+        const uploadHint = uploadArea.querySelector('.upload-hint');
+        const uploadBtn = uploadArea.querySelector('.upload-btn');
+
+        if (type === 'video') {
+          uploadHint.textContent = '拖拽视频到此或点击上传';
+          uploadBtn.textContent = '上传视频';
+          fileInput.accept = 'video/*';
+        } else if (type === 'image') {
+          uploadHint.textContent = '拖拽图片到此或点击上传';
+          uploadBtn.textContent = '上传图片';
+          fileInput.accept = 'image/*';
+        } else if (type === 'article') {
+          uploadHint.textContent = '点击开始撰写长文';
+          uploadBtn.textContent = '开始写作';
+        }
+      }
+
+      // 点击上传按钮触发文件选择
+      const uploadBtn = uploadArea.querySelector('.upload-btn');
+      uploadBtn.addEventListener('click', function() {
+        const activeTab = document.querySelector('.upload-tab.active');
+        if (activeTab.dataset.tab !== 'article') {
+          fileInput.click();
+        } else {
+          alert('长文编辑功能开发中...');
+        }
+      });
+
+      // 文件选择处理
+      fileInput.addEventListener('change', function(e) {
+        if (e.target.files.length > 0) {
+          alert('已选择文件: ' + e.target.files[0].name);
+        }
+      });
+
+      // 拖拽上传
+      uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.style.backgroundColor = '#e8e8e8';
+      });
+
+      uploadArea.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        this.style.backgroundColor = '#f5f5f5';
+      });
+
+      uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.style.backgroundColor = '#f5f5f5';
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          alert('已拖拽文件: ' + files[0].name);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
